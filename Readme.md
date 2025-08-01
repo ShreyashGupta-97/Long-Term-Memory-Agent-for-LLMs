@@ -68,6 +68,7 @@ export OPENAI_API_KEY="your_openai_api_key_here"
 4. Deactivate when done using the following command:
     deactivate
 
+---
 
 ## Running the Script
 
