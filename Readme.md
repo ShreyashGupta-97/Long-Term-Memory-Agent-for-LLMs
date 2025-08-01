@@ -25,6 +25,8 @@ This project implements a **memory storage and retrieval agent** using OpenAI AP
   - `chromadb` (for persistent vector storage)
   - `langchain_community`
 
+ ---
+
 ## Setting Up the OpenAI API Key
 
 To securely use OpenAI APIs, set it as an environment variable:
@@ -75,16 +77,16 @@ export OPENAI_API_KEY="your_openai_api_key_here"
 1. Clone or download this repository.
 2. Ensure you have Python 3.11.9 installed.
 3. Setup and activate the virtual environment as described above
-3. Install dependencies:
+4. Install dependencies:
     pip install -r requirements.txt
-4. Set your OpenAI API key as described above.
-5. Run the script:
+5. Set your OpenAI API key as described above.
+6. Run the script:
     python main.py
-6. Interact with the agent via the command line:
+7. Interact with the agent via the command line:
     - Add memories by telling the agent facts (e.g., “I use Shram and Magnet as productivity tools”).
     - Retrieve memories by asking questions (e.g., “What are the productivity tools that I use?”).
     - Delete memories by commands like “I don't use Magnet anymore”.
-7. Type `exit` to quit the program.
+8. Type `exit` to quit the program.
 
 ---
 
@@ -146,6 +148,8 @@ For portability and ease of deployment:
 #### 6. **Environment Variables**
 
 - Set sensitive environment variables (such as `OPENAI_API_KEY`) in your deployment environment/container, not in code.
+
+---
 
 ## Way Forward
 1. Memory updation logic can be implemented. This can be done by creating a separate function and adding a new intent 'update_memory'. If this intent is detected, the old fact is deleted and the new fact is added in the vector store. However, this can have potential issues of removing some important information.
