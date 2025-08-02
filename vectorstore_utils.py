@@ -18,17 +18,22 @@ def add_memory_to_vectorstore(vectorstore, facts_list, similarity_threshold=0.9)
                 existing_fact_embedding = embeddings.embed_query(existing_fact)
                 sim = cosine_similarity([fact_embedding], [existing_fact_embedding])[0][0]
                 if sim >= similarity_threshold:
-                    print(f"Agent: Fact '{fact}' is too similar to existing fact '{existing_fact}'. Skipping.")
-                    continue
+                    print(f"Agent: I think Fact '{fact}' is too similar to existing fact '{existing_fact}'. Do you still want to add? (Y/N)")
+                    user_message = input("You: ")
+                    if user_message.strip().lower() == 'n':
+                        print(f"Agent: Skipping.")
+                        continue
             vectorstore.add_texts([fact], ids=[str(hash(fact))])
 
-def delete_memory_from_vectorstore(vectorstore, facts_list):
+def delete_memory_from_vectorstore(vectorstore, facts_list, similarity_threshold=0.33):
     """Delete all memories from the vectorstore that match any fact in facts_list. Take confirmation from the user before deleting."""
     for fact in facts_list:
-        docs = vectorstore.similarity_search(fact, k=1)
+        docs = vectorstore.similarity_search_with_score(fact, k=5)
         if not docs:
             print(f"No matching fact found for deletion: {fact}")
-        for doc in docs:
+        for doc, score in docs:
+            if score > similarity_threshold:
+                continue  # Skip low matching facts for user prompt
             doc_id = getattr(doc, 'id', None) or str(hash(doc.page_content))
             print(f"Agent: I am Deleting fact: '{doc.page_content}. Shall I go ahead? (Y/N)")
             user_message = input("You: ")
