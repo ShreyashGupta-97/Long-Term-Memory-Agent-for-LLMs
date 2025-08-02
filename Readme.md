@@ -5,13 +5,13 @@
 This project implements a **memory storage and retrieval agent** using OpenAI APIs, designed to give GPT models persistent long-term memory across conversations. The system records relevant "memories" from user inputs, efficiently storing them in a semantic vector store and retrieving them upon request.
 
 ### Key Features
-- **Add Memories:** Extracts discrete facts from user messages and stores them as memories. Prevents duplication of information by accident
+- **Add Memories:** Extracts discrete facts from user messages and stores them as memories. Prevents duplication of information by accident bu confirming from the user.
 - **Retrieve Memories:** Answers user queries by retrieving relevant stored memories and synthesizing responses.
 - **Delete Memories:** Removes specified memories when the user indicates they no longer apply. 
 - **Multi-User/Session Support:** Configured to isolate memories by user/session.
 - **Persistent Storage:** Linked with a vector database (Chroma) for durable storage of embeddings and facts.
 - **Intent Classification:** Automatically infers user intent (add, retrieve, delete) from messages using GPT.
-- **Safe Operations:** Prompts for confirmation before deleting memories to prevent accidental loss.
+- **Safe Operations:** Prompts for confirmation before deleting memories to prevent accidental loss. Checks similarity score first to reduce human involvement in accidental deletion of facts
 
 ---
 
@@ -158,3 +158,4 @@ For portability and ease of deployment:
 
 
 Thank you for using the GPT Long-Term Memory Agent project!
+
